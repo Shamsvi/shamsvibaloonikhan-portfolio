@@ -1,0 +1,467 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Shamsvi Balooni Khan — Data Science & AI</title>
+<link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Mono:wght@300;400;500&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet"/>
+<style>
+  :root {
+    --bg: #0d0f14;
+    --surface: #13161d;
+    --surface2: #1a1e28;
+    --border: #252a38;
+    --accent: #4fffb0;
+    --accent2: #7c6fff;
+    --text: #e8eaf0;
+    --muted: #7a8099;
+    --tag-bg: #1e2333;
+  }
+
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  html { scroll-behavior: smooth; }
+
+  body {
+    font-family: 'DM Sans', sans-serif;
+    background: var(--bg);
+    color: var(--text);
+    line-height: 1.65;
+    overflow-x: hidden;
+  }
+
+  body::before {
+    content: '';
+    position: fixed; inset: 0;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.04'/%3E%3C/svg%3E");
+    pointer-events: none; z-index: 0; opacity: 0.4;
+  }
+
+  nav {
+    position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+    display: flex; justify-content: space-between; align-items: center;
+    padding: 1.25rem 4rem;
+    background: rgba(13,15,20,0.9);
+    backdrop-filter: blur(12px);
+    border-bottom: 1px solid var(--border);
+  }
+  .nav-logo { font-family: 'DM Mono', monospace; font-size: 0.85rem; color: var(--accent); letter-spacing: 0.05em; text-decoration: none; }
+  .nav-links { display: flex; gap: 2rem; list-style: none; }
+  .nav-links a { font-size: 0.85rem; color: var(--muted); text-decoration: none; transition: color 0.2s; letter-spacing: 0.03em; }
+  .nav-links a:hover { color: var(--text); }
+
+  section { position: relative; z-index: 1; }
+
+  #hero {
+    min-height: 100vh;
+    display: flex; flex-direction: column; justify-content: center;
+    padding: 8rem 4rem 4rem;
+    max-width: 1100px; margin: 0 auto;
+  }
+  .hero-eyebrow {
+    font-family: 'DM Mono', monospace; font-size: 0.78rem; color: var(--accent);
+    letter-spacing: 0.15em; text-transform: uppercase; margin-bottom: 1.5rem;
+    display: flex; align-items: center; gap: 0.75rem;
+  }
+  .hero-eyebrow::before { content: ''; width: 2rem; height: 1px; background: var(--accent); }
+  h1 { font-family: 'DM Serif Display', serif; font-size: clamp(3rem, 7vw, 5.5rem); line-height: 1.05; letter-spacing: -0.02em; margin-bottom: 1.5rem; }
+  h1 em { font-style: italic; color: var(--accent); }
+  .hero-sub { font-size: 1.1rem; color: var(--muted); max-width: 520px; margin-bottom: 2.5rem; font-weight: 300; line-height: 1.7; }
+  .hero-ctas { display: flex; gap: 1rem; flex-wrap: wrap; }
+
+  .btn {
+    display: inline-flex; align-items: center; gap: 0.5rem;
+    padding: 0.75rem 1.5rem; border-radius: 4px;
+    font-size: 0.88rem; font-family: 'DM Mono', monospace;
+    font-weight: 500; letter-spacing: 0.03em;
+    text-decoration: none; cursor: pointer; border: none; transition: all 0.2s;
+  }
+  .btn-primary { background: var(--accent); color: #0d0f14; }
+  .btn-primary:hover { background: #3ae89a; transform: translateY(-1px); }
+  .btn-outline { background: transparent; color: var(--text); border: 1px solid var(--border); }
+  .btn-outline:hover { border-color: var(--muted); transform: translateY(-1px); }
+
+  .hero-scroll { margin-top: 5rem; font-family: 'DM Mono', monospace; font-size: 0.72rem; color: var(--muted); letter-spacing: 0.1em; display: flex; align-items: center; gap: 0.75rem; }
+  .hero-scroll::after { content: ''; width: 3rem; height: 1px; background: var(--muted); animation: lineGrow 2s ease-in-out infinite; }
+  @keyframes lineGrow { 0%, 100% { width: 1rem; opacity: 0.4; } 50% { width: 3rem; opacity: 1; } }
+
+  .section-wrap { max-width: 1100px; margin: 0 auto; padding: 6rem 4rem; }
+  .section-label { font-family: 'DM Mono', monospace; font-size: 0.72rem; color: var(--accent); letter-spacing: 0.15em; text-transform: uppercase; margin-bottom: 0.75rem; }
+  h2 { font-family: 'DM Serif Display', serif; font-size: clamp(2rem, 4vw, 3rem); margin-bottom: 3rem; letter-spacing: -0.01em; }
+
+  #about { background: var(--surface); }
+  .about-grid { display: grid; grid-template-columns: 1.4fr 1fr; gap: 4rem; align-items: start; }
+  .about-text p { color: var(--muted); font-weight: 300; margin-bottom: 1rem; font-size: 1.05rem; line-height: 1.8; }
+  .about-text p strong { color: var(--text); font-weight: 500; }
+  .about-stats { display: grid; grid-template-columns: 1fr 1fr; gap: 1.25rem; margin-top: 2rem; }
+  .stat-card { background: var(--surface2); border: 1px solid var(--border); border-radius: 8px; padding: 1.25rem; }
+  .stat-num { font-family: 'DM Serif Display', serif; font-size: 2.2rem; color: var(--accent); display: block; }
+  .stat-label { font-size: 0.8rem; color: var(--muted); font-family: 'DM Mono', monospace; margin-top: 0.25rem; }
+
+  .pub-card { background: var(--surface2); border: 1px solid var(--border); border-left: 3px solid var(--accent2); border-radius: 8px; padding: 1.25rem 1.5rem; }
+  .pub-card .pub-label { font-family: 'DM Mono', monospace; font-size: 0.7rem; color: var(--accent2); letter-spacing: 0.12em; text-transform: uppercase; margin-bottom: 0.5rem; }
+  .pub-card p { font-size: 0.88rem; color: var(--muted); line-height: 1.6; }
+
+  #projects { background: var(--bg); }
+  .projects-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 1.5rem; }
+  .project-card { background: var(--surface); border: 1px solid var(--border); border-radius: 12px; padding: 2rem; position: relative; transition: border-color 0.25s, transform 0.25s; }
+  .project-card::before { content: ''; position: absolute; top: 0; left: 0; right: 0; height: 3px; background: linear-gradient(90deg, var(--accent), var(--accent2)); transform: scaleX(0); transform-origin: left; transition: transform 0.3s; }
+  .project-card:hover { border-color: var(--muted); transform: translateY(-3px); }
+  .project-card:hover::before { transform: scaleX(1); }
+  .project-card.featured { grid-column: span 2; display: flex; flex-direction: column; gap: 1.5rem; }
+  .project-card.featured .featured-inner { display: grid; grid-template-columns: 1fr 1fr; gap: 2rem; }
+  .project-meta { font-family: 'DM Mono', monospace; font-size: 0.7rem; color: var(--accent); letter-spacing: 0.1em; text-transform: uppercase; margin-bottom: 0.75rem; }
+  .project-card h3 { font-family: 'DM Serif Display', serif; font-size: 1.4rem; margin-bottom: 0.75rem; letter-spacing: -0.01em; }
+  .project-card p { color: var(--muted); font-size: 0.9rem; line-height: 1.7; font-weight: 300; }
+  .project-tags { display: flex; flex-wrap: wrap; gap: 0.5rem; margin-top: 1.5rem; }
+  .tag { background: var(--tag-bg); color: var(--muted); font-family: 'DM Mono', monospace; font-size: 0.7rem; padding: 0.3rem 0.65rem; border-radius: 3px; border: 1px solid var(--border); letter-spacing: 0.03em; }
+  .tag.accent { background: rgba(79,255,176,0.07); color: var(--accent); border-color: rgba(79,255,176,0.2); }
+
+  #experience { background: var(--surface); }
+  .exp-list { display: flex; flex-direction: column; }
+  .exp-item { display: grid; grid-template-columns: 200px 1fr; gap: 2rem; padding: 2rem 0; border-bottom: 1px solid var(--border); }
+  .exp-item:first-child { padding-top: 0; }
+  .exp-item:last-child { border-bottom: none; }
+  .exp-date { font-family: 'DM Mono', monospace; font-size: 0.78rem; color: var(--muted); padding-top: 0.2rem; line-height: 1.5; }
+  .exp-content h3 { font-size: 1.05rem; font-weight: 600; margin-bottom: 0.25rem; }
+  .exp-company { font-family: 'DM Mono', monospace; font-size: 0.8rem; color: var(--accent); margin-bottom: 1rem; }
+  .exp-bullets { list-style: none; display: flex; flex-direction: column; gap: 0.5rem; }
+  .exp-bullets li { font-size: 0.88rem; color: var(--muted); padding-left: 1rem; position: relative; line-height: 1.65; font-weight: 300; }
+  .exp-bullets li::before { content: '\2192'; position: absolute; left: 0; color: var(--accent); font-size: 0.75rem; }
+
+  #skills { background: var(--bg); }
+  .skills-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.25rem; }
+  .skill-group { background: var(--surface); border: 1px solid var(--border); border-radius: 10px; padding: 1.75rem; }
+  .skill-group h4 { font-family: 'DM Mono', monospace; font-size: 0.72rem; color: var(--accent); letter-spacing: 0.12em; text-transform: uppercase; margin-bottom: 1rem; }
+  .skill-pills { display: flex; flex-wrap: wrap; gap: 0.5rem; }
+  .pill { background: var(--tag-bg); color: var(--text); font-size: 0.82rem; padding: 0.35rem 0.75rem; border-radius: 4px; border: 1px solid var(--border); font-weight: 400; }
+
+  #contact { background: var(--surface); text-align: center; }
+  #contact .section-wrap { display: flex; flex-direction: column; align-items: center; }
+  #contact h2 { margin-bottom: 1rem; }
+  .contact-sub { color: var(--muted); font-size: 1rem; max-width: 440px; margin-bottom: 2.5rem; font-weight: 300; }
+  .contact-links { display: flex; gap: 1rem; flex-wrap: wrap; justify-content: center; margin-bottom: 3rem; }
+
+  footer { background: var(--bg); border-top: 1px solid var(--border); padding: 2rem 4rem; display: flex; justify-content: space-between; align-items: center; font-family: 'DM Mono', monospace; font-size: 0.72rem; color: var(--muted); position: relative; z-index: 1; }
+
+  .gradient-divider { height: 1px; background: linear-gradient(90deg, transparent, var(--border), transparent); position: relative; z-index: 1; }
+
+  @media (max-width: 768px) {
+    nav { padding: 1rem 1.5rem; }
+    .nav-links { display: none; }
+    .section-wrap, #hero { padding: 4rem 1.5rem; }
+    .about-grid, .projects-grid, .skills-grid { grid-template-columns: 1fr; }
+    .project-card.featured { grid-column: span 1; grid-template-columns: 1fr; }
+    .exp-item { grid-template-columns: 1fr; gap: 0.5rem; }
+    footer { flex-direction: column; gap: 0.5rem; text-align: center; }
+  }
+</style>
+</head>
+<body>
+
+<nav>
+  <a class="nav-logo" href="#hero">SBK.portfolio</a>
+  <ul class="nav-links">
+    <li><a href="#about">About</a></li>
+    <li><a href="#projects">Projects</a></li>
+    <li><a href="#experience">Experience</a></li>
+    <li><a href="#skills">Skills</a></li>
+    <li><a href="#contact">Contact</a></li>
+  </ul>
+</nav>
+
+<!-- HERO -->
+<section id="hero">
+  <div class="hero-eyebrow">Available for full-time roles · May 2026</div>
+  <h1>Shamsvi Balooni Khan<br><em>Data Science & AI</em></h1>
+  <p class="hero-sub">
+    MS Data Science candidate at Michigan State University. I build end-to-end AI pipelines, interactive dashboards, and data-driven solutions — open to Data Science, Data Analyst, and AI roles.
+  </p>
+  <div class="hero-ctas">
+    <a href="#projects" class="btn btn-primary">View Projects &#8595;</a>
+    <a href="#contact" class="btn btn-outline">Get in Touch</a>
+  </div>
+  <div class="hero-scroll">scroll to explore</div>
+</section>
+
+<div class="gradient-divider"></div>
+
+<!-- ABOUT -->
+<section id="about">
+  <div class="section-wrap">
+    <div class="section-label">01 / About</div>
+    <h2>Who I Am</h2>
+    <div class="about-grid">
+      <div class="about-text">
+        <p>I'm a data scientist and analyst with a background spanning <strong>data engineering, NLP, business intelligence, and cybersecurity analytics</strong>. My work lives at the intersection of technical rigor and clear communication.</p>
+        <p>I build things that matter: pipelines that clean 100K+ records, dashboards that cut review time, and reports that help non-technical stakeholders make confident decisions. I care deeply about the <strong>last mile</strong> — the moment data becomes insight.</p>
+        <p>Currently completing my <strong>MS in Data Science at Michigan State</strong> (graduating May 2026), and actively seeking full-time data analyst / data scientist roles.</p>
+        <div class="about-stats">
+          <div class="stat-card"><span class="stat-num">4+</span><span class="stat-label">Data Projects</span></div>
+          <div class="stat-card"><span class="stat-num">2</span><span class="stat-label">Degrees</span></div>
+          <div class="stat-card"><span class="stat-num">2</span><span class="stat-label">Internships</span></div>
+          <div class="stat-card"><span class="stat-num">1</span><span class="stat-label">Publication</span></div>
+        </div>
+        <div style="margin-top: 2rem;">
+          <div class="pub-card">
+            <div class="pub-label">&#128240; Published · Business Today · Mar 2025</div>
+            <p style="font-size: 1rem; color: var(--text); font-weight: 500; margin-bottom: 0.5rem;">'$35 million gone in one call': Deepfake fraud rings are fooling the world's smartest firms</p>
+            <p style="margin-bottom: 1rem;">Research and writing on how deepfake-powered fraud is targeting corporations globally — published in one of India's leading business media outlets.</p>
+            <a href="https://www.businesstoday.in/technology/news/story/35-million-gone-in-one-call-deepfake-fraud-rings-are-fooling-the-worlds-smartest-firms-469682-2025-03-27" target="_blank" class="btn btn-outline" style="font-size: 0.78rem; padding: 0.5rem 1rem; display: inline-flex;">Read Article &#8599;</a>
+          </div>
+        </div>
+      </div>
+      <div>
+        <div style="background: var(--surface2); border: 1px solid var(--border); border-radius: 12px; padding: 2rem;">
+          <div class="section-label" style="margin-bottom: 1rem;">Education</div>
+          <div style="display: flex; flex-direction: column; gap: 1.5rem;">
+            <div>
+              <div style="font-size: 0.82rem; color: var(--accent); font-family: 'DM Mono', monospace;">Expected May 2026</div>
+              <div style="font-weight: 600; margin-top: 0.3rem;">MS, Data Science</div>
+              <div style="font-size: 0.85rem; color: var(--muted);">Michigan State University</div>
+            </div>
+            <div style="height: 1px; background: var(--border);"></div>
+            <div>
+              <div style="font-size: 0.82rem; color: var(--accent); font-family: 'DM Mono', monospace;">May 2024</div>
+              <div style="font-weight: 600; margin-top: 0.3rem;">BS, Information Systems &amp; Cybersecurity</div>
+              <div style="font-size: 0.85rem; color: var(--muted);">Cal State San Bernardino</div>
+              <div style="font-size: 0.78rem; color: var(--muted); margin-top: 0.2rem; font-family: 'DM Mono', monospace;">Transferred from BITS Dubai</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="gradient-divider"></div>
+
+<!-- PROJECTS -->
+<section id="projects">
+  <div class="section-wrap">
+    <div class="section-label">02 / Projects</div>
+    <h2>Selected Work</h2>
+    <div class="projects-grid">
+
+      <div class="project-card featured">
+        <div class="featured-inner">
+          <div>
+            <div class="project-meta">Capstone · Business Intelligence</div>
+            <h3>Meijer Product Analytics Dashboard</h3>
+            <p>Built an end-to-end AI pipeline to generate product names, descriptions, features, and attributes for Meijer.com softlines products. Engineered Gemini/Gemma prompt templates with rule-based constraints for brand, length, and style compliance.</p>
+            <p style="margin-top: 0.75rem;">Implemented a scoring and quality-control framework using weighted metrics across quality, compliance, grounding, and style. Evaluated generations using BLEU/ROUGE, LaBSE semantic similarity, and rule-based scores.</p>
+          </div>
+          <div>
+            <div style="background: var(--surface2); border: 1px solid var(--border); border-radius: 8px; padding: 1.5rem;">
+              <div style="font-family: 'DM Mono', monospace; font-size: 0.7rem; color: var(--muted); margin-bottom: 1rem;">KEY OUTCOMES</div>
+              <ul style="list-style: none; display: flex; flex-direction: column; gap: 0.75rem;">
+                <li style="font-size: 0.88rem; color: var(--muted); display: flex; gap: 0.5rem;"><span style="color: var(--accent);">&#10003;</span> Prompt engineering to extract product data from images</li>
+                <li style="font-size: 0.88rem; color: var(--muted); display: flex; gap: 0.5rem;"><span style="color: var(--accent);">&#10003;</span> 1,000+ softlines products analyzed</li>
+                <li style="font-size: 0.88rem; color: var(--muted); display: flex; gap: 0.5rem;"><span style="color: var(--accent);">&#10003;</span> Scoring algorithm for automated quality checks</li>
+                <li style="font-size: 0.88rem; color: var(--muted); display: flex; gap: 0.5rem;"><span style="color: var(--accent);">&#10003;</span> Presented to Meijer &amp; MSU stakeholders</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+        <div class="project-tags">
+          <span class="tag accent">Python</span>
+          <span class="tag accent">Gemini / Gemma</span>
+          <span class="tag accent">Prompt Engineering</span>
+          <span class="tag">Streamlit</span>
+          <span class="tag">BLEU / ROUGE</span>
+          <span class="tag">LaBSE</span>
+          <span class="tag">Scoring Algorithm</span>
+          <span class="tag">ETL</span>
+        </div>
+      </div>
+
+      <div class="project-card">
+        <div class="project-meta">Healthcare · Compliance Analytics</div>
+        <h3>Henry Ford Health Compliance Reporting</h3>
+        <p>Designed structured annotation frameworks to produce element-level audit trails for compliance teams. Built NLP pipelines processing de-identified clinical text — extracting structured findings to support policy documentation and regulatory reporting.</p>
+        <div class="project-tags">
+          <span class="tag accent">Python</span>
+          <span class="tag accent">NLP</span>
+          <span class="tag">Clinical Text</span>
+          <span class="tag">Compliance</span>
+          <span class="tag">ETL</span>
+        </div>
+      </div>
+
+      <div class="project-card">
+        <div class="project-meta">NLP Research · Large-Scale Data Engineering</div>
+        <h3>Multilingual Question Answering</h3>
+        <p>Processed 100,000+ samples through a translation and alignment pipeline using fuzzy span alignment. Fine-tuned XLM-RoBERTa on the resulting Hindi dataset and evaluated using LaBSE semantic similarity, EM and F1 metrics.</p>
+        <div class="project-tags">
+          <span class="tag accent">XLM-RoBERTa</span>
+          <span class="tag accent">LaBSE</span>
+          <span class="tag">Python</span>
+          <span class="tag">NLP</span>
+          <span class="tag">HuggingFace</span>
+          <span class="tag">100K+ samples</span>
+        </div>
+        <div style="margin-top: 1.25rem; display: flex; gap: 0.75rem;">
+          <a href="https://github.com/andrew-jxhn/CSE842_NLPProject" target="_blank" class="btn btn-outline" style="font-size: 0.78rem; padding: 0.5rem 1rem;">GitHub &#8594;</a>
+        </div>
+      </div>
+
+      <div class="project-card" style="grid-column: span 2;">
+        <div class="project-meta">Data Visualization · Sports Analytics</div>
+        <h3>Cricket Analytics Dashboard</h3>
+        <p>Analyzed large cricket datasets to extract match performance insights, player statistics, and trends. Built an interactive Streamlit dashboard enabling dynamic data exploration and real-time visualization — end-to-end from raw data to business-ready insights.</p>
+        <div class="project-tags">
+          <span class="tag accent">Streamlit</span>
+          <span class="tag accent">Python</span>
+          <span class="tag">Matplotlib</span>
+          <span class="tag">Seaborn</span>
+          <span class="tag">Sports Analytics</span>
+          <span class="tag">Data Viz</span>
+        </div>
+        <div style="margin-top: 1.25rem; display: flex; gap: 0.75rem;">
+          <a href="https://cricketfever.streamlit.app" target="_blank" class="btn btn-primary" style="font-size: 0.78rem; padding: 0.5rem 1rem;">Live App &#8599;</a>
+          <a href="https://github.com/Shamsvi/Streamlit_Mens_T-20_Cricket_WorldCup_2007-2024" target="_blank" class="btn btn-outline" style="font-size: 0.78rem; padding: 0.5rem 1rem;">GitHub &#8594;</a>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<div class="gradient-divider"></div>
+
+<!-- EXPERIENCE -->
+<section id="experience">
+  <div class="section-wrap">
+    <div class="section-label">03 / Experience</div>
+    <h2>Where I've Worked</h2>
+    <div class="exp-list">
+
+      <div class="exp-item">
+        <div class="exp-date">Jun 2025 – Aug 2025<br>Westford, MA</div>
+        <div class="exp-content">
+          <h3>Cybersecurity Intern — Data &amp; Reporting Focus</h3>
+          <div class="exp-company">Seceon Inc.</div>
+          <ul class="exp-bullets">
+            <li>Updated and maintained a 200+ page enterprise product user guide, documenting platform workflows, dashboards, alert configurations, and compliance reporting procedures.</li>
+            <li>Translated complex cybersecurity features into clear, structured documentation for both technical and non-technical audiences across multiple product versions.</li>
+            <li>Developed and executed cyberattack simulations using Kali Linux, documenting scenario outcomes and findings in structured reports for engineering review.</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="exp-item">
+        <div class="exp-date">Jul 2024 – Aug 2024<br>Pune, India</div>
+        <div class="exp-content">
+          <h3>Homeland &amp; Cyber Security Research Intern</h3>
+          <div class="exp-company">Mahindra Defence Systems Ltd.</div>
+          <ul class="exp-bullets">
+            <li>Researched cybersecurity threat assessment techniques and vulnerability frameworks, analyzing network configurations and security risks to identify key findings.</li>
+            <li>Authored structured reports on penetration testing, incident response, and OWASP Top Vulnerabilities — translating technical findings into clear, actionable documentation.</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="exp-item">
+        <div class="exp-date">Aug 2022 – May 2024<br>San Bernardino, CA</div>
+        <div class="exp-content">
+          <h3>Student Assistant — Special Events &amp; Guest Services</h3>
+          <div class="exp-company">California State University, San Bernardino</div>
+          <ul class="exp-bullets">
+            <li>Coordinated with internal teams, vendors, and university departments to plan and execute large-scale events, managing logistics and resolving issues in real time.</li>
+            <li>Communicated with stakeholders to address inquiries, track action items, and support successful event delivery — building strong coordination and problem-solving skills.</li>
+          </ul>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<div class="gradient-divider"></div>
+
+<!-- SKILLS -->
+<section id="skills">
+  <div class="section-wrap">
+    <div class="section-label">04 / Skills</div>
+    <h2>Technical Toolkit</h2>
+    <div class="skills-grid">
+      <div class="skill-group">
+        <h4>Programming & Query</h4>
+        <div class="skill-pills">
+          <span class="pill">Python</span>
+          <span class="pill">SQL</span>
+          <span class="pill">R</span>
+        </div>
+      </div>
+      <div class="skill-group">
+        <h4>AI & NLP</h4>
+        <div class="skill-pills">
+          <span class="pill">Prompt Engineering</span>
+          <span class="pill">HuggingFace</span>
+          <span class="pill">XLM-R</span>
+          <span class="pill">GloVe</span>
+          <span class="pill">BLEU / ROUGE</span>
+          <span class="pill">LaBSE</span>
+        </div>
+      </div>
+      <div class="skill-group">
+        <h4>Data & Analysis</h4>
+        <div class="skill-pills">
+          <span class="pill">Pandas</span>
+          <span class="pill">NumPy</span>
+          <span class="pill">Statistical Modeling</span>
+          <span class="pill">Data Cleaning</span>
+          <span class="pill">Optimization</span>
+        </div>
+      </div>
+      <div class="skill-group">
+        <h4>AI Product Development</h4>
+        <div class="skill-pills">
+          <span class="pill">Gemini / Gemma</span>
+          <span class="pill">Image-to-Text Pipelines</span>
+          <span class="pill">Streamlit</span>
+          <span class="pill">End-to-End AI Pipelines</span>
+        </div>
+      </div>
+      <div class="skill-group">
+        <h4>Cybersecurity</h4>
+        <div class="skill-pills">
+          <span class="pill">Kali Linux</span>
+          <span class="pill">Metasploit</span>
+          <span class="pill">Attack Simulation</span>
+          <span class="pill">EDR / MTMT</span>
+          <span class="pill">OWASP</span>
+        </div>
+      </div>
+      <div class="skill-group">
+        <h4>Tools & Workflow</h4>
+        <div class="skill-pills">
+          <span class="pill">Git / GitHub</span>
+          <span class="pill">Jupyter / Colab</span>
+          <span class="pill">Matplotlib</span>
+          <span class="pill">Seaborn</span>
+          <span class="pill">Parquet / Pickle</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="gradient-divider"></div>
+
+<!-- CONTACT -->
+<section id="contact">
+  <div class="section-wrap">
+    <div class="section-label">05 / Contact</div>
+    <h2>Let's Work Together</h2>
+    <p class="contact-sub">I'm actively looking for full-time data analyst and data scientist roles starting May 2026. If you think I'd be a good fit, I'd love to hear from you.</p>
+    <div class="contact-links">
+      <a href="/cdn-cgi/l/email-protection#205348414d535649424b60474d41494c0e434f4d" class="btn btn-primary">&#9993; <span class="__cf_email__" data-cfemail="d0a3b8b1bda3a6b9b2bb90b7bdb1b9bcfeb3bfbd">[email&#160;protected]</span></a>
+      <a href="tel:4422319105" class="btn btn-outline">&#128222; (442) 231-9105</a>
+      <a href="https://www.linkedin.com/in/shamsvi-balooni-khan-980985214" target="_blank" class="btn btn-outline">LinkedIn &#8594;</a>
+    </div>
+    <p style="font-family: 'DM Mono', monospace; font-size: 0.78rem; color: var(--muted);">Based in East Lansing, MI &middot; Open to remote &amp; relocation</p>
+  </div>
+</section>
+
+<footer>
+  <spa
